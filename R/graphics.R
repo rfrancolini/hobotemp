@@ -1,5 +1,5 @@
 
-#' Plot U and V vectors - possibly with low currents hidden from view
+#' Plot temperature data as scatter plot with trendline
 #'
 #' @export
 #' @param x tibble of hobotemp data
