@@ -9,7 +9,7 @@ draw_plot(
   main = "Temperature at Depth",
   xlabel = "Date",
   ylabel = "Temperature (degrees C)",
-  alpha = 0.1
+  alpha = 0.2
 )
 }
 \arguments{

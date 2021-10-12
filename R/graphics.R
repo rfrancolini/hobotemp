@@ -12,7 +12,7 @@ draw_plot <- function(x = read_hobotemp(),
                       main = "Temperature at Depth",
                       xlabel = "Date",
                       ylabel = "Temperature (degrees C)",
-                      alpha = 0.1){
+                      alpha = 0.2){
 
   ggplot2::ggplot(data = x, ggplot2::aes(x = .data$DateTime, y = .data$Temp)) +
   ggplot2::geom_point(na.rm = TRUE, alpha = alpha, shape = 4) +
