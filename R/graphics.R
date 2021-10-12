@@ -17,7 +17,7 @@ draw_plot <- function(x = read_hobotemp(),
   ggplot2::ggplot(data = x, ggplot2::aes(x = .data$DateTime, y = .data$Temp)) +
   ggplot2::geom_point(na.rm = TRUE, alpha = alpha, shape = 4) +
   ggplot2::labs(title = main, x = xlabel, y = ylabel) +
-  ggplot2::geom_smooth(na.rm = TRUE, se = FALSE)
+  suppressMessages( ggplot2::geom_smooth(na.rm = TRUE, se = FALSE))
 
 }
 
