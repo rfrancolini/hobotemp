@@ -1,0 +1,50 @@
+---
+title: "Hobotemp"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Hobotemp
+
+This is for managing and understanding your HOBO temperature data
+
+## Requirements
+
+  + [R v4+](https://www.r-project.org/)
+  + [dplyr](https://CRAN.R-project.org/package=dplyr)
+  + [readr](https://CRAN.R-project.org/package=readr)
+  + [stringr](https://CRAN.R-project.org/package=stringr)
+  + [ggplot2](https://CRAN.R-project.org/package=ggplot2)
+
+## Installation
+
+```
+remotes::install_github("rfrancolini/hobotemp")
+```
+
+## Read Example Data
+
+```{r example}
+library(hobotemp)
+x <- read_hobotemp()
+x
+```
+
+## Read Example Data with Defined Deploy/Recover Dates
+
+```{r exampleDR}
+d <- as.POSIXct("2021-05-15", "")
+r <- as.POSIXct("2021-08-16", "")
+xdr <- read_hobotemp(deploy = d, recover = r)
+xdr
+```
+
+## Draw Example Plot
+
+```{r tempplot}
+tempplot <- draw_plot(xdr)
+tempplot
+```
