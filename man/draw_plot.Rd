@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{draw_plot}
 \alias{draw_plot}
-\title{Plot U and V vectors - possibly with low currents hidden from view}
+\title{Plot temperature data as scatter plot with trendline}
 \usage{
 draw_plot(
   x = read_hobotemp(),
@@ -27,5 +27,5 @@ draw_plot(
 ggplot2 object
 }
 \description{
-Plot U and V vectors - possibly with low currents hidden from view
+Plot temperature data as scatter plot with trendline
 }

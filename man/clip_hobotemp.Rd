@@ -4,14 +4,12 @@
 \alias{clip_hobotemp}
 \title{clip hobotemp table by date}
 \usage{
-clip_hobotemp(x, deploy = NA, recover = NA)
+clip_hobotemp(x, startstop = NA)
 }
 \arguments{
 \item{x}{tibble, hobotemp}
 
-\item{deploy}{POSIXt or NA, if not NA, clip data before this time}
-
-\item{recover}{POSIXt or NA, if not NA, clip data before this time}
+\item{startstop}{POSIXt vector of two values or NA, only used if clip = "user"}
 }
 \value{
 tibble

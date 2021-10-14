@@ -4,14 +4,14 @@
 \alias{read_hobotemp}
 \title{read hobotemp data file}
 \usage{
-read_hobotemp(filename = example_filename(), deploy = NA, recover = NA)
+read_hobotemp(filename = example_filename(), clipped = "auto", startstop = NA)
 }
 \arguments{
 \item{filename}{character, the name of the file}
 
-\item{deploy}{POSIXt or NA, if not NA, clip data before this time}
+\item{clipped}{"auto", "user", or NA, if auto, removed partial start/end days. if user, uses supplied startstop days. if NA, does no date trimming}
 
-\item{recover}{POSIXt or NA, if not NA, clip data before this time}
+\item{startstop}{POSIXt vector of two values or NA, only used if clip = "user"}
 }
 \value{
 tibble

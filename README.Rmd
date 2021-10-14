@@ -33,18 +33,38 @@ x <- read_hobotemp()
 x
 ```
 
-## Read Example Data with Defined Deploy/Recover Dates
-
-```{r exampleDR}
-d <- as.POSIXct("2021-05-15", "")
-r <- as.POSIXct("2021-08-16", "")
-xdr <- read_hobotemp(deploy = d, recover = r)
-xdr
-```
-
 ## Draw Example Plot
 
 ```{r tempplot}
-tempplot <- draw_plot(xdr)
-tempplot
+tempplot_x <- draw_plot(x)
+tempplot_x
+```
+
+## Read Example Data With User Defined Start/Stop Dates
+
+```{r exampleStartStop}
+ss <- as.POSIXct(c("2021-05-20", "2021-06-01"), tz = "EST")
+xud <- read_hobotemp(clipped = "user", startstop = ss)
+xud
+```
+
+## Draw Example Plot User Defined Start/Stop Dates
+
+```{r tempplot_ud}
+tempplot_xud <- draw_plot(xud)
+tempplot_xud
+```
+
+## Read Example Data Without Clipping Data
+
+```{r exampleNA}
+xna <- read_hobotemp(clipped = NA)
+xna
+```
+
+## Draw Example Plot Without Clipping Data
+
+```{r tempplot_na}
+tempplot_na <- draw_plot(xna)
+tempplot_na
 ```
