@@ -16,9 +16,9 @@ example_filename <- function(){
 clip_hobotemp <- function(x,
                           startstop = NA) {
 
-  if (is.na(startstop)) {
-     x <- x %>% dplyr::mutate (Date = as.Date(DateTime, tz = "EST"),
-                              DateNum = as.numeric(DateTime))
+  if (is.na(startstop)[1]) {
+     x <- x %>% dplyr::mutate (Date = as.Date(.data$DateTime, tz = "EST"),
+                              DateNum = as.numeric(.data$DateTime))
 
      ix <- which(diff(x$Date) != 0)[1]  + 1
      firstday <- as.numeric(difftime(x$DateTime[ix], x$DateTime[1]))
@@ -34,14 +34,14 @@ clip_hobotemp <- function(x,
           x <- x[-((iix+1):nrow(x)),]
         }
 
-     x <- x %>% dplyr::select(-Date, -DateNum)
+     x <- x %>% dplyr::select(-.data$Date, -.data$DateNum)
   }
 
 
-  if (!is.na(startstop)) {
+  if (!is.na(startstop)[1]) {
     x <- x %>%
-      dplyr::filter(DateTime >= startstop[1]) %>%
-      dplyr::filter(DateTime <= startstop[2])
+      dplyr::filter(.data$DateTime >= startstop[1]) %>%
+      dplyr::filter(.data$DateTime <= startstop[2])
   }
 
   x
@@ -51,11 +51,11 @@ clip_hobotemp <- function(x,
 #'
 #' @export
 #' @param filename character, the name of the file
-#' @param clipped "auto", "user", or NA, if auto, removed partial start/end days. if user, uses supplied startstop days. if NA, does no date trimming
+#' @param clipped character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming
 #' @param startstop POSIXt vector of two values or NA, only used if clip = "user"
 #' @return tibble
 read_hobotemp <- function(filename = example_filename(),
-                          clipped = "auto",
+                          clipped = c("auto", "user", "none")[1],
                           startstop = NA){
   stopifnot(inherits(filename, "character"))
   stopifnot(file.exists(filename[1]))
@@ -72,15 +72,16 @@ read_hobotemp <- function(filename = example_filename(),
   #convert date/time to POSIXct format
   x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "EST")
 
-
-  if (!is.na(clipped) && clipped == "auto") {
-    x <- clip_hobotemp(x,
-                       startstop = NA)
-  } else if (!is.na(clipped) && clipped == "user") {
-    x <- clip_hobotemp(x,
-                       startstop = startstop)
-  }
-
+  x <- switch(tolower(clipped[1]),
+              "auto" = clip_hobotemp(x, startstop = NA),
+              "user" = clip_hobotemp(x, startstop = startstop),
+              "none" = x,
+              "strawberry" = {
+                startstop = as.POSIXct(c("1970-01-01 00:00:00", "2222-01-01 00:00:00"), tz = "EST")
+                clip_hobotemp(x, startstop = startstop)
+              },
+              stop("options for clipped are auto, user, or none. what is ", clipped, "?")
+              )
 
   return(x)
 

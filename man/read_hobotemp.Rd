@@ -4,12 +4,16 @@
 \alias{read_hobotemp}
 \title{read hobotemp data file}
 \usage{
-read_hobotemp(filename = example_filename(), clipped = "auto", startstop = NA)
+read_hobotemp(
+  filename = example_filename(),
+  clipped = c("auto", "user", "none")[1],
+  startstop = NA
+)
 }
 \arguments{
 \item{filename}{character, the name of the file}
 
-\item{clipped}{"auto", "user", or NA, if auto, removed partial start/end days. if user, uses supplied startstop days. if NA, does no date trimming}
+\item{clipped}{character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming}
 
 \item{startstop}{POSIXt vector of two values or NA, only used if clip = "user"}
 }
