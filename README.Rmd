@@ -35,7 +35,7 @@ x
 
 ## Draw Example Plot
 
-```{r tempplot}
+```{r tempplot, message=FALSE}
 tempplot_x <- draw_plot(x)
 tempplot_x
 ```
@@ -50,7 +50,7 @@ xud
 
 ## Draw Example Plot User Defined Start/Stop Dates
 
-```{r tempplot_ud}
+```{r tempplot_ud, message=FALSE}
 tempplot_xud <- draw_plot(xud)
 tempplot_xud
 ```
@@ -58,13 +58,13 @@ tempplot_xud
 ## Read Example Data Without Clipping Data
 
 ```{r exampleNA}
-xna <- read_hobotemp(clipped = NA)
+xna <- read_hobotemp(clipped = "none")
 xna
 ```
 
 ## Draw Example Plot Without Clipping Data
 
-```{r tempplot_na}
+```{r tempplot_na, message=FALSE}
 tempplot_na <- draw_plot(xna)
 tempplot_na
 ```

@@ -76,10 +76,6 @@ read_hobotemp <- function(filename = example_filename(),
               "auto" = clip_hobotemp(x, startstop = NA),
               "user" = clip_hobotemp(x, startstop = startstop),
               "none" = x,
-              "strawberry" = {
-                startstop = as.POSIXct(c("1970-01-01 00:00:00", "2222-01-01 00:00:00"), tz = "EST")
-                clip_hobotemp(x, startstop = startstop)
-              },
               stop("options for clipped are auto, user, or none. what is ", clipped, "?")
               )
 

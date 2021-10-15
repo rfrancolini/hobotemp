@@ -47,8 +47,6 @@ tempplot_x <- draw_plot(x)
 tempplot_x
 ```
 
-    ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-
 ![](README_files/figure-gfm/tempplot-1.png)<!-- -->
 
 ## Read Example Data With User Defined Start/Stop Dates
@@ -56,15 +54,6 @@ tempplot_x
 ``` r
 ss <- as.POSIXct(c("2021-05-20", "2021-06-01"), tz = "EST")
 xud <- read_hobotemp(clipped = "user", startstop = ss)
-```
-
-    ## Warning in if (is.na(startstop)) {: the condition has length > 1 and only the
-    ## first element will be used
-
-    ## Warning in if (!is.na(startstop)) {: the condition has length > 1 and only the
-    ## first element will be used
-
-``` r
 xud
 ```
 
@@ -90,14 +79,12 @@ tempplot_xud <- draw_plot(xud)
 tempplot_xud
 ```
 
-    ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-
 ![](README_files/figure-gfm/tempplot_ud-1.png)<!-- -->
 
 ## Read Example Data Without Clipping Data
 
 ``` r
-xna <- read_hobotemp(clipped = NA)
+xna <- read_hobotemp(clipped = "none")
 xna
 ```
 
@@ -122,7 +109,5 @@ xna
 tempplot_na <- draw_plot(xna)
 tempplot_na
 ```
-
-    ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 
 ![](README_files/figure-gfm/tempplot_na-1.png)<!-- -->
