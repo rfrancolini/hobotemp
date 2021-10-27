@@ -9,7 +9,8 @@ draw_plot(
   main = "Temperature at Depth",
   xlabel = "Date",
   ylabel = "Temperature (degrees C)",
-  alpha = 0.2
+  alpha = 0.2,
+  ...
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ draw_plot(
 \item{ylabel}{character, title of yaxis}
 
 \item{alpha}{numeric, 0.1 default}
+
+\item{...}{further arguments passed to \code{\link[ggplot2]{theme}}}
 }
 \value{
 ggplot2 object
