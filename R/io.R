@@ -17,7 +17,7 @@ clip_hobotemp <- function(x,
                           startstop = NA) {
 
   if (is.na(startstop)[1]) {
-     x <- x %>% dplyr::mutate (Date = as.Date(.data$DateTime, tz = "EST"),
+     x <- x %>% dplyr::mutate (Date = as.Date(.data$DateTime, tz = "UTC"),
                               DateNum = as.numeric(.data$DateTime))
 
      ix <- which(diff(x$Date) != 0)[1]  + 1
@@ -64,13 +64,16 @@ read_hobotemp <- function(filename = example_filename(),
                                         col_types = "dcddccccc"))
 
   colnames(x)[1] <- "Reading"
-  colnames(x)[2] <- "DateTime" #EST
+  colnames(x)[2] <- "DateTime" #EDT
   colnames(x)[3] <- "Temp"
   colnames(x)[4] <- "Intensity"
   x <- x[-(5:9)]
 
   #convert date/time to POSIXct format
-  x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "EST")
+  x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "Etc/GMT-4")
+
+  #convert date/time to UTC
+  x <- x %>% dplyr::mutate(DateTime = lubridate::with_tz(x$DateTime, tzone = "UTC"))
 
   x <- switch(tolower(clipped[1]),
               "auto" = clip_hobotemp(x, startstop = NA),

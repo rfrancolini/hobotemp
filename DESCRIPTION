@@ -15,4 +15,5 @@ Imports:
   dplyr,
   readr,
   stringr,
-  ggplot2
+  ggplot2,
+  lubridate
