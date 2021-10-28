@@ -16,4 +16,6 @@ Imports:
   readr,
   stringr,
   ggplot2,
-  lubridate
+  lubridate,
+  tibble,
+  data.table

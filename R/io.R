@@ -59,15 +59,13 @@ read_hobotemp <- function(filename = example_filename(),
                           startstop = NA){
   stopifnot(inherits(filename, "character"))
   stopifnot(file.exists(filename[1]))
-  x <- suppressMessages(readr::read_csv(filename[1],
-                                        skip = 1,
-                                        col_types = "dcddccccc"))
+
+  x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
 
   colnames(x)[1] <- "Reading"
-  colnames(x)[2] <- "DateTime" #EDT
+  colnames(x)[2] <- "DateTime" #GMT-04
   colnames(x)[3] <- "Temp"
   colnames(x)[4] <- "Intensity"
-  x <- x[-(5:9)]
 
   #convert date/time to POSIXct format
   x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "Etc/GMT-4")
