@@ -3,6 +3,7 @@
 export(clip_hobotemp)
 export(draw_plot)
 export(example_filename)
+export(read_hobo_cols)
 export(read_hobotemp)
 importFrom(dplyr,"%>%")
 importFrom(rlang,.data)

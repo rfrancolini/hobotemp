@@ -19,8 +19,6 @@ This is for managing and understanding your HOBO temperature data
   + [stringr](https://CRAN.R-project.org/package=stringr)
   + [ggplot2](https://CRAN.R-project.org/package=ggplot2)
   + [lubridate](https://CRAN.R-project.org/package=lubridate)
-  + [tibble](https://CRAN.R-project.org/package=tibble)
-  + [data.table](https://CRAN.R-project.org/package=data.table)
 
 ## Installation
 

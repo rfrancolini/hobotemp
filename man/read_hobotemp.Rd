@@ -7,7 +7,8 @@
 read_hobotemp(
   filename = example_filename(),
   clipped = c("auto", "user", "none")[1],
-  startstop = NA
+  startstop = NA,
+  skip = 1
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ read_hobotemp(
 \item{clipped}{character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming}
 
 \item{startstop}{POSIXt vector of two values or NA, only used if clip = "user"}
+
+\item{skip}{numeric, number of rows to skip when reading, default 1}
 }
 \value{
 tibble

@@ -47,25 +47,62 @@ clip_hobotemp <- function(x,
   x
 }
 
+#' read hobotemp data file header
+#'
+#' @export
+#' @param filename character, the name of the file
+#' @param skip numeric, number of lines to skip - default 1
+#' @return named list
+read_hobo_cols <- function(filename = example_filename(),
+                                 skip = 1){
+
+  x <- readLines(filename)[skip+1] %>%
+    stringr::str_split('("[^"]*),') %>%
+    `[[`(1)
+
+  x <- x[nchar(x) >0]
+
+  r = c("icnn", rep("-",length(x)-4)) %>% paste(collapse = "")
+  return(r)
+}
+
+
+
 #' read hobotemp data file
 #'
 #' @export
 #' @param filename character, the name of the file
 #' @param clipped character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming
 #' @param startstop POSIXt vector of two values or NA, only used if clip = "user"
+#' @param skip numeric, number of rows to skip when reading, default 1
 #' @return tibble
 read_hobotemp <- function(filename = example_filename(),
                           clipped = c("auto", "user", "none")[1],
-                          startstop = NA){
+                          startstop = NA,
+                          skip = 1){
   stopifnot(inherits(filename, "character"))
   stopifnot(file.exists(filename[1]))
 
-  x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
+  columns <- read_hobo_cols()
+
+  x <- readr::read_csv(filename,
+                       col_types = columns,
+                       skip = skip,
+                       quote = '"')
+
+  #extract site name from first line of file
+  site <- readLines(filename, 1) %>%
+    stringr::str_extract_all("(?<=: ).+(?=\")") %>%
+    `[[`(1)
+
+  #x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
 
   colnames(x)[1] <- "Reading"
   colnames(x)[2] <- "DateTime" #GMT-04
   colnames(x)[3] <- "Temp"
   colnames(x)[4] <- "Intensity"
+
+  x <- x %>% dplyr::mutate(Site = site)
 
   #convert date/time to POSIXct format
   x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "Etc/GMT-4")
