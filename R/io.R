@@ -56,13 +56,19 @@ clip_hobotemp <- function(x,
 read_hobo_cols <- function(filename = example_filename(),
                                  skip = 1){
 
-  x <- readLines(filename)[skip+1] %>%
-    stringr::str_split('("[^"]*),') %>%
+  x <- readLines(filename)[skip+2] %>%
+   # stringr::str_split('("[^"]*),') %>%
+    stringr::str_split_fixed(",", Inf) %>%
     `[[`(1)
 
   x <- x[nchar(x) >0]
 
   r = c("icnn", rep("-",length(x)-4)) %>% paste(collapse = "")
+
+  n = c("Reading", "DateTime", "Temp", "Intensity", LETTERS[seq_len(length(x)-4)])
+
+  r <- list(col_names = n, col_types = r)
+
   return(r)
 }
 
@@ -86,8 +92,9 @@ read_hobotemp <- function(filename = example_filename(),
   columns <- read_hobo_cols()
 
   x <- readr::read_csv(filename,
-                       col_types = columns,
-                       skip = skip,
+                       col_names = FALSE,
+                       col_types = columns[["col_types"]],
+                       skip = skip+1,
                        quote = '"')
 
   #extract site name from first line of file
@@ -97,15 +104,16 @@ read_hobotemp <- function(filename = example_filename(),
 
   #x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
 
-  colnames(x)[1] <- "Reading"
-  colnames(x)[2] <- "DateTime" #GMT-04
-  colnames(x)[3] <- "Temp"
-  colnames(x)[4] <- "Intensity"
+  colnames(x) <- columns[["col_names"]][1:4]
+ #colnames(x)[1] <- "Reading"
+ #colnames(x)[2] <- "DateTime" #GMT-04
+ #colnames(x)[3] <- "Temp"
+ #colnames(x)[4] <- "Intensity"
 
   x <- x %>% dplyr::mutate(Site = site)
 
   #convert date/time to POSIXct format
-  x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "Etc/GMT-4")
+  x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "US/Eastern")
 
   #convert date/time to UTC
   x <- x %>% dplyr::mutate(DateTime = lubridate::with_tz(x$DateTime, tzone = "UTC"))
