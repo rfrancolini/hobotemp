@@ -58,14 +58,15 @@ read_hobo_cols <- function(filename = example_filename(),
 
   x <- readLines(filename)[skip+2] %>%
    # stringr::str_split('("[^"]*),') %>%
-    stringr::str_split_fixed(",", Inf) %>%
+    stringr::str_split(stringr::fixed(","), n = Inf) %>%
     `[[`(1)
 
-  x <- x[nchar(x) >0]
+  N <- length(x)
+  #x <- x[length(x) >0]
 
-  r = c("icnn", rep("-",length(x)-4)) %>% paste(collapse = "")
+  r = c("icnn", rep("-",N-4)) %>% paste(collapse = "")
 
-  n = c("Reading", "DateTime", "Temp", "Intensity", LETTERS[seq_len(length(x)-4)])
+  n = c("Reading", "DateTime", "Temp", "Intensity", LETTERS[seq_len(N-4)])
 
   r <- list(col_names = n, col_types = r)
 
@@ -89,12 +90,12 @@ read_hobotemp <- function(filename = example_filename(),
   stopifnot(inherits(filename, "character"))
   stopifnot(file.exists(filename[1]))
 
-  columns <- read_hobo_cols()
+  columns <- read_hobo_cols(filename[1])
 
   x <- readr::read_csv(filename,
-                       col_names = FALSE,
+                       col_names = columns[['col_names']],
                        col_types = columns[["col_types"]],
-                       skip = skip+1,
+                       skip = skip + 1,
                        quote = '"')
 
   #extract site name from first line of file
@@ -104,7 +105,7 @@ read_hobotemp <- function(filename = example_filename(),
 
   #x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
 
-  colnames(x) <- columns[["col_names"]][1:4]
+ # colnames(x) <- columns[["col_names"]][1:4]
  #colnames(x)[1] <- "Reading"
  #colnames(x)[2] <- "DateTime" #GMT-04
  #colnames(x)[3] <- "Temp"
