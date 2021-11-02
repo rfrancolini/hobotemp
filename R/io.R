@@ -93,10 +93,12 @@ read_hobotemp <- function(filename = example_filename(),
   columns <- read_hobo_cols(filename[1])
 
   x <- readr::read_csv(filename,
-                       col_names = columns[['col_names']],
+                       #col_names = columns[['col_names']],
                        col_types = columns[["col_types"]],
-                       skip = skip + 1,
+                       skip = skip,
                        quote = '"')
+
+  colnames(x) <- columns[["col_names"]][1:4]
 
   #extract site name from first line of file
   site <- readLines(filename, 1) %>%

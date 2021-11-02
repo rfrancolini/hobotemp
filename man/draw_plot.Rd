@@ -10,6 +10,7 @@ draw_plot(
   xlabel = "Date",
   ylabel = "Temperature (degrees C)",
   alpha = 0.2,
+  facet = NULL,
   ...
 )
 }
@@ -23,6 +24,8 @@ draw_plot(
 \item{ylabel}{character, title of yaxis}
 
 \item{alpha}{numeric, 0.1 default}
+
+\item{facet}{character, name of the column to facet upon (like "Site") or NULL to skip}
 
 \item{...}{further arguments passed to \code{\link[ggplot2]{theme}}}
 }
