@@ -23,7 +23,7 @@ draw_plot <- function(x = read_hobotemp(),
     ggplot2::labs(title = main, x = xlabel, y = ylabel) +
     suppressMessages(ggplot2::geom_smooth(na.rm = TRUE, se = FALSE))
   if (!is.null(facet)){
-    gg <- gg + ggplot2::facet_wrap(.data[[facet]])
+    gg <- gg + ggplot2::facet_wrap(facet)
   }
   gg
 }

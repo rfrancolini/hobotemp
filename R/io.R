@@ -103,7 +103,8 @@ read_hobotemp <- function(filename = example_filename(),
   #extract site name from first line of file
   site <- readLines(filename, 1) %>%
     stringr::str_extract_all("(?<=: ).+(?=\")") %>%
-    `[[`(1)
+    `[[`(1)  %>%
+    stringr::str_replace_all("[^[:alnum:]]", "")
 
   #x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
 
