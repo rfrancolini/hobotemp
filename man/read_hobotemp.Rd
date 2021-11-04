@@ -2,10 +2,11 @@
 % Please edit documentation in R/io.R
 \name{read_hobotemp}
 \alias{read_hobotemp}
-\title{read hobotemp data file}
+\title{read raw hobotemp data file, QA/QC it, write as a new file}
 \usage{
 read_hobotemp(
   filename = example_filename(),
+  output = NA,
   clipped = c("auto", "user", "none")[1],
   startstop = NA,
   skip = 1
@@ -13,6 +14,8 @@ read_hobotemp(
 }
 \arguments{
 \item{filename}{character, the name of the file}
+
+\item{output}{character, the name for the outputted QAQC file}
 
 \item{clipped}{character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming}
 
@@ -24,5 +27,5 @@ read_hobotemp(
 tibble
 }
 \description{
-read hobotemp data file
+read raw hobotemp data file, QA/QC it, write as a new file
 }

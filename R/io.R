@@ -75,15 +75,17 @@ read_hobo_cols <- function(filename = example_filename(),
 
 
 
-#' read hobotemp data file
+#' read raw hobotemp data file, QA/QC it, write as a new file
 #'
 #' @export
 #' @param filename character, the name of the file
+#' @param output character, the name for the outputted QAQC file
 #' @param clipped character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming
 #' @param startstop POSIXt vector of two values or NA, only used if clip = "user"
 #' @param skip numeric, number of rows to skip when reading, default 1
 #' @return tibble
 read_hobotemp <- function(filename = example_filename(),
+                          output = NA,
                           clipped = c("auto", "user", "none")[1],
                           startstop = NA,
                           skip = 1){
@@ -108,11 +110,7 @@ read_hobotemp <- function(filename = example_filename(),
 
   #x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
 
- # colnames(x) <- columns[["col_names"]][1:4]
- #colnames(x)[1] <- "Reading"
- #colnames(x)[2] <- "DateTime" #GMT-04
- #colnames(x)[3] <- "Temp"
- #colnames(x)[4] <- "Intensity"
+ #colnames(x) <- columns[["col_names"]][1:4]
 
   x <- x %>% dplyr::mutate(Site = site)
 
@@ -129,8 +127,37 @@ read_hobotemp <- function(filename = example_filename(),
               stop("options for clipped are auto, user, or none. what is ", clipped, "?")
               )
 
+  #Remove na's
+  x <- na.omit(x)
+
+  if (!is.na(output)) {
+  readr::write_csv(x, file = output) }
+
   return(x)
 
 }
 
+
+#' print out summary of hobotemp data
+#'
+#' @export
+#' @param x tibble, tibble of hobotemp data
+#' @return tibble
+summarize_hobotemp <- function(x = read_hobotemp()){
+
+  #remove any NA's before summarizing
+
+  x <- na.omit(x)
+
+  s <- x %>% dplyr::group_by(.data$Site) %>%
+             dplyr::summarise(mean.temp = mean(.data$Temp),
+                              first.day = dplyr::first(.data$DateTime),
+                              last.day = dplyr::last(.data$DateTime),
+                              max.temp = max(.data$Temp),
+                              max.temp.date = .data$DateTime[which.max(.data$Temp)],
+                              min.temp = min(.data$Temp),
+                              min.temp.date = .data$DateTime[which.min(.data$Temp)])
+
+  return(s)
+}
 
