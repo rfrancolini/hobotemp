@@ -27,18 +27,41 @@ x
 ```
 
     ## # A tibble: 9,025 x 5
-    ##    Reading DateTime             Temp Intensity Site         
-    ##      <int> <dttm>              <dbl>     <dbl> <chr>        
-    ##  1      85 2021-05-15 00:04:32  7.68         0 Little Drisko
-    ##  2      86 2021-05-15 00:19:32  7.68         0 Little Drisko
-    ##  3      87 2021-05-15 00:34:32  7.78         0 Little Drisko
-    ##  4      88 2021-05-15 00:49:32  7.78         0 Little Drisko
-    ##  5      89 2021-05-15 01:04:32  7.78         2 Little Drisko
-    ##  6      90 2021-05-15 01:19:32  7.68         9 Little Drisko
-    ##  7      91 2021-05-15 01:34:32  7.68        20 Little Drisko
-    ##  8      92 2021-05-15 01:49:32  7.78        37 Little Drisko
-    ##  9      93 2021-05-15 02:04:32  7.78        69 Little Drisko
-    ## 10      94 2021-05-15 02:19:32  7.78        57 Little Drisko
+    ##    Reading DateTime             Temp Intensity Site        
+    ##      <int> <dttm>              <dbl>     <dbl> <chr>       
+    ##  1      53 2021-05-15 00:04:32  8.18         0 LittleDrisko
+    ##  2      54 2021-05-15 00:19:32  8.18         0 LittleDrisko
+    ##  3      55 2021-05-15 00:34:32  8.08         0 LittleDrisko
+    ##  4      56 2021-05-15 00:49:32  8.18         0 LittleDrisko
+    ##  5      57 2021-05-15 01:04:32  8.08         0 LittleDrisko
+    ##  6      58 2021-05-15 01:19:32  8.08         0 LittleDrisko
+    ##  7      59 2021-05-15 01:34:32  7.98         0 LittleDrisko
+    ##  8      60 2021-05-15 01:49:32  7.88         0 LittleDrisko
+    ##  9      61 2021-05-15 02:04:32  7.88         0 LittleDrisko
+    ## 10      62 2021-05-15 02:19:32  7.88         0 LittleDrisko
+    ## # ... with 9,015 more rows
+
+## Read Example Data with User Defined Site
+
+``` r
+library(hobotemp)
+x <- read_hobotemp(site = "Little Drisko Island")
+x
+```
+
+    ## # A tibble: 9,025 x 5
+    ##    Reading DateTime             Temp Intensity Site                
+    ##      <int> <dttm>              <dbl>     <dbl> <chr>               
+    ##  1      53 2021-05-15 00:04:32  8.18         0 Little Drisko Island
+    ##  2      54 2021-05-15 00:19:32  8.18         0 Little Drisko Island
+    ##  3      55 2021-05-15 00:34:32  8.08         0 Little Drisko Island
+    ##  4      56 2021-05-15 00:49:32  8.18         0 Little Drisko Island
+    ##  5      57 2021-05-15 01:04:32  8.08         0 Little Drisko Island
+    ##  6      58 2021-05-15 01:19:32  8.08         0 Little Drisko Island
+    ##  7      59 2021-05-15 01:34:32  7.98         0 Little Drisko Island
+    ##  8      60 2021-05-15 01:49:32  7.88         0 Little Drisko Island
+    ##  9      61 2021-05-15 02:04:32  7.88         0 Little Drisko Island
+    ## 10      62 2021-05-15 02:19:32  7.88         0 Little Drisko Island
     ## # ... with 9,015 more rows
 
 ## Draw Example Plot
@@ -59,42 +82,19 @@ xud
 ```
 
     ## # A tibble: 1,152 x 5
-    ##    Reading DateTime             Temp Intensity Site         
-    ##      <int> <dttm>              <dbl>     <dbl> <chr>        
-    ##  1     565 2021-05-20 00:04:32  9.08         0 Little Drisko
-    ##  2     566 2021-05-20 00:19:32  9.08         0 Little Drisko
-    ##  3     567 2021-05-20 00:34:32  9.08         0 Little Drisko
-    ##  4     568 2021-05-20 00:49:32  9.18         0 Little Drisko
-    ##  5     569 2021-05-20 01:04:32  9.18         0 Little Drisko
-    ##  6     570 2021-05-20 01:19:32  8.88         0 Little Drisko
-    ##  7     571 2021-05-20 01:34:32  8.78         0 Little Drisko
-    ##  8     572 2021-05-20 01:49:32  8.68         0 Little Drisko
-    ##  9     573 2021-05-20 02:04:32  8.58         0 Little Drisko
-    ## 10     574 2021-05-20 02:19:32  8.58         0 Little Drisko
+    ##    Reading DateTime             Temp Intensity Site        
+    ##      <int> <dttm>              <dbl>     <dbl> <chr>       
+    ##  1     533 2021-05-20 00:04:32  8.38         0 LittleDrisko
+    ##  2     534 2021-05-20 00:19:32  8.48         0 LittleDrisko
+    ##  3     535 2021-05-20 00:34:32  8.48         0 LittleDrisko
+    ##  4     536 2021-05-20 00:49:32  8.48         0 LittleDrisko
+    ##  5     537 2021-05-20 01:04:32  8.58         0 LittleDrisko
+    ##  6     538 2021-05-20 01:19:32  8.58         0 LittleDrisko
+    ##  7     539 2021-05-20 01:34:32  8.68         0 LittleDrisko
+    ##  8     540 2021-05-20 01:49:32  8.68         0 LittleDrisko
+    ##  9     541 2021-05-20 02:04:32  8.78         0 LittleDrisko
+    ## 10     542 2021-05-20 02:19:32  8.78         0 LittleDrisko
     ## # ... with 1,142 more rows
-
-## Read Example Data with User Defined Site
-
-``` r
-library(hobotemp)
-x <- read_hobotemp(site = "Little Drisko Island")
-x
-```
-
-    ## # A tibble: 9,025 x 5
-    ##    Reading DateTime             Temp Intensity Site         
-    ##      <int> <dttm>              <dbl>     <dbl> <chr>        
-    ##  1      85 2021-05-15 00:04:32  7.68         0 Little Drisko Island
-    ##  2      86 2021-05-15 00:19:32  7.68         0 Little Drisko Island
-    ##  3      87 2021-05-15 00:34:32  7.78         0 Little Drisko Island
-    ##  4      88 2021-05-15 00:49:32  7.78         0 Little Drisko Island
-    ##  5      89 2021-05-15 01:04:32  7.78         2 Little Drisko Island
-    ##  6      90 2021-05-15 01:19:32  7.68         9 Little Drisko Island
-    ##  7      91 2021-05-15 01:34:32  7.68        20 Little Drisko Island
-    ##  8      92 2021-05-15 01:49:32  7.78        37 Little Drisko Island
-    ##  9      93 2021-05-15 02:04:32  7.78        69 Little Drisko Island
-    ## 10      94 2021-05-15 02:19:32  7.78        57 Little Drisko Island
-    ## # ... with 9,015 more rows
 
 ## Draw Example Plot User Defined Start/Stop Dates
 
@@ -112,20 +112,20 @@ xna <- read_hobotemp(clipped = "none")
 xna
 ```
 
-    ## # A tibble: 9,169 x 5
-    ##    Reading DateTime             Temp Intensity Site         
-    ##      <int> <dttm>              <dbl>     <dbl> <chr>        
-    ##  1       1 2021-05-14 03:19:32  20.1         1 Little Drisko
-    ##  2       2 2021-05-14 03:19:59  NA          NA Little Drisko
-    ##  3       3 2021-05-14 03:34:32  20.5        36 Little Drisko
-    ##  4       4 2021-05-14 03:49:32  20.5        37 Little Drisko
-    ##  5       5 2021-05-14 04:04:32  15.5        26 Little Drisko
-    ##  6       6 2021-05-14 04:19:32  14.0        25 Little Drisko
-    ##  7       7 2021-05-14 04:34:32  14.7        38 Little Drisko
-    ##  8       8 2021-05-14 04:49:32  14.7       123 Little Drisko
-    ##  9       9 2021-05-14 05:04:32  13.9        60 Little Drisko
-    ## 10      10 2021-05-14 05:19:32  15.3        35 Little Drisko
-    ## # ... with 9,159 more rows
+    ## # A tibble: 9,165 x 5
+    ##    Reading DateTime             Temp Intensity Site        
+    ##      <int> <dttm>              <dbl>     <dbl> <chr>       
+    ##  1       1 2021-05-14 11:19:32  20.1         1 LittleDrisko
+    ##  2       3 2021-05-14 11:34:32  20.5        36 LittleDrisko
+    ##  3       4 2021-05-14 11:49:32  20.5        37 LittleDrisko
+    ##  4       5 2021-05-14 12:04:32  15.5        26 LittleDrisko
+    ##  5       6 2021-05-14 12:19:32  14.0        25 LittleDrisko
+    ##  6       7 2021-05-14 12:34:32  14.7        38 LittleDrisko
+    ##  7       8 2021-05-14 12:49:32  14.7       123 LittleDrisko
+    ##  8       9 2021-05-14 13:04:32  13.9        60 LittleDrisko
+    ##  9      10 2021-05-14 13:19:32  15.3        35 LittleDrisko
+    ## 10      11 2021-05-14 13:34:32  14.6        38 LittleDrisko
+    ## # ... with 9,155 more rows
 
 ## Draw Example Plot Without Clipping Data
 

@@ -34,6 +34,14 @@ x <- read_hobotemp()
 x
 ```
 
+## Read Example Data with User Defined Site
+
+``` {r exampleSiteName}
+library(hobotemp)
+x <- read_hobotemp(site = "Little Drisko Island")
+x
+```
+
 ## Draw Example Plot
 
 ```{r tempplot, message=FALSE}
