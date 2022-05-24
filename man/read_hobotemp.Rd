@@ -7,6 +7,7 @@
 read_hobotemp(
   filename = example_filename(),
   output = NA,
+  site = NA,
   clipped = c("auto", "user", "none")[1],
   startstop = NA,
   skip = 1
@@ -16,6 +17,8 @@ read_hobotemp(
 \item{filename}{character, the name of the file}
 
 \item{output}{character, the name for the outputted QAQC file}
+
+\item{site}{character, the name of the site, if NA the code will use filename without special character}
 
 \item{clipped}{character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming}
 

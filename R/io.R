@@ -80,12 +80,14 @@ read_hobo_cols <- function(filename = example_filename(),
 #' @export
 #' @param filename character, the name of the file
 #' @param output character, the name for the outputted QAQC file
+#' @param site character, the name of the site, if NA the code will use filename without special character
 #' @param clipped character, if auto, removed partial start/end days. if user, uses supplied startstop days. if none, does no date trimming
 #' @param startstop POSIXt vector of two values or NA, only used if clip = "user"
 #' @param skip numeric, number of rows to skip when reading, default 1
 #' @return tibble
 read_hobotemp <- function(filename = example_filename(),
                           output = NA,
+                          site = NA,
                           clipped = c("auto", "user", "none")[1],
                           startstop = NA,
                           skip = 1){
@@ -102,17 +104,19 @@ read_hobotemp <- function(filename = example_filename(),
 
   colnames(x) <- columns[["col_names"]][1:4]
 
+  #define site name to be filled in column
+  if (!is.na(site)) {
+    siteName <- site
+  } else {
   #extract site name from first line of file
-  site <- readLines(filename, 1) %>%
-    stringr::str_extract_all("(?<=: ).+(?=\")") %>%
-    `[[`(1)  %>%
-    stringr::str_replace_all("[^[:alnum:]]", "")
+    siteName <- readLines(filename, 1) %>%
+      stringr::str_extract_all("(?<=: ).+(?=\")") %>%
+      `[[`(1)  %>%
+      stringr::str_replace_all("[^[:alnum:]]", "")
+  }
 
-  #x <- tibble::as_tibble(data.table::fread(filename[1], select = c(1:4)))
-
- #colnames(x) <- columns[["col_names"]][1:4]
-
-  x <- x %>% dplyr::mutate(Site = site)
+  #assign sitename to the column
+  x <- x %>% dplyr::mutate(Site = siteName)
 
   #convert date/time to POSIXct format
   x$DateTime = as.POSIXct(x$DateTime, format = "%m/%d/%y %I:%M:%S %p", tz = "US/Eastern")

@@ -73,6 +73,29 @@ xud
     ## 10     574 2021-05-20 02:19:32  8.58         0 Little Drisko
     ## # ... with 1,142 more rows
 
+## Read Example Data with User Defined Site
+
+``` r
+library(hobotemp)
+x <- read_hobotemp(site = "Little Drisko Island")
+x
+```
+
+    ## # A tibble: 9,025 x 5
+    ##    Reading DateTime             Temp Intensity Site         
+    ##      <int> <dttm>              <dbl>     <dbl> <chr>        
+    ##  1      85 2021-05-15 00:04:32  7.68         0 Little Drisko Island
+    ##  2      86 2021-05-15 00:19:32  7.68         0 Little Drisko Island
+    ##  3      87 2021-05-15 00:34:32  7.78         0 Little Drisko Island
+    ##  4      88 2021-05-15 00:49:32  7.78         0 Little Drisko Island
+    ##  5      89 2021-05-15 01:04:32  7.78         2 Little Drisko Island
+    ##  6      90 2021-05-15 01:19:32  7.68         9 Little Drisko Island
+    ##  7      91 2021-05-15 01:34:32  7.68        20 Little Drisko Island
+    ##  8      92 2021-05-15 01:49:32  7.78        37 Little Drisko Island
+    ##  9      93 2021-05-15 02:04:32  7.78        69 Little Drisko Island
+    ## 10      94 2021-05-15 02:19:32  7.78        57 Little Drisko Island
+    ## # ... with 9,015 more rows
+
 ## Draw Example Plot User Defined Start/Stop Dates
 
 ``` r
