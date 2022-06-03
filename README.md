@@ -67,11 +67,20 @@ x
 ## Draw Example Plot
 
 ``` r
-tempplot_x <- draw_plot(x)
+tempplot_x <- draw_scatter_plot(x)
 tempplot_x
 ```
 
 ![](README_files/figure-gfm/tempplot-1.png)<!-- -->
+
+## Draw example ridgeline plot
+
+``` r
+ridgelineplot <- draw_ridgeline_plot()
+ridgelineplot
+```
+
+![](README_files/figure-gfm/ridgeline-1.png)<!-- -->
 
 ## Read Example Data With User Defined Start/Stop Dates
 
@@ -99,7 +108,7 @@ xud
 ## Draw Example Plot User Defined Start/Stop Dates
 
 ``` r
-tempplot_xud <- draw_plot(xud)
+tempplot_xud <- draw_scatter_plot(xud)
 tempplot_xud
 ```
 
@@ -130,7 +139,7 @@ xna
 ## Draw Example Plot Without Clipping Data
 
 ``` r
-tempplot_na <- draw_plot(xna)
+tempplot_na <- draw_scatter_plot(xna)
 tempplot_na
 ```
 
