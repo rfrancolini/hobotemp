@@ -9,6 +9,7 @@ draw_ridgeline_plot(
   main = "Temperature at Depth",
   xlabel = "Date",
   ylabel = "Site",
+  ordered = NULL,
   ...
 )
 }
@@ -20,6 +21,8 @@ draw_ridgeline_plot(
 \item{xlabel}{character, title of xaxis}
 
 \item{ylabel}{character, title of yaxis}
+
+\item{ordered}{vector, vector of site names in order to be displayed bottom to top, must match site names in csv}
 
 \item{...}{further arguments passed to \code{\link[ggplot2]{theme}}}
 }

@@ -48,12 +48,14 @@ example_ridge_data <- function(){
 #' @param main character, title
 #' @param xlabel character, title of xaxis
 #' @param ylabel character, title of yaxis
+#' @param ordered vector, vector of site names in order to be displayed bottom to top, must match site names in csv
 #' @param ... further arguments passed to \code{\link[ggplot2]{theme}}
 #' @return ggplot2 object
 draw_ridgeline_plot <- function(x = example_ridge_data(),
                                 main = "Temperature at Depth",
                                 xlabel = "Date",
                                 ylabel = "Site",
+                                ordered = NULL,
                                 ...) {
 
 
@@ -74,7 +76,11 @@ draw_ridgeline_plot <- function(x = example_ridge_data(),
 
   #loop through the sites, look in df to see if site matches, if so, give it proper sitenum
   for (ii in 1:length(n)) {
-    x$SiteNum <- ifelse(x$Site == n[ii], ns[ii], x$SiteNum)
+
+    if (!is.null(ordered)) #orders based on order handed to function
+      {x$SiteNum <- ifelse(x$Site == ordered[ii], ns[ii], x$SiteNum)}
+    else #not ordered
+      {x$SiteNum <- ifelse(x$Site == n[ii], ns[ii], x$SiteNum)}
   }
 
   #create vector with length 10 more than the highest site number
@@ -84,9 +90,13 @@ draw_ridgeline_plot <- function(x = example_ridge_data(),
   for (yy in 1:length(n)) {
 
     nl <- ns[yy] + 5 #calculate ylabel position number
-    ylabs[nl] <- n[yy] #assign position name of corresponding site
+    if (!is.null(ordered)) #ordered
+    {ylabs[nl] <- ordered[yy]}
+    else #not ordered
+    {ylabs[nl] <- n[yy]} #assign position name of corresponding site
 
   }
+
 
   #plot
 
