@@ -54,6 +54,22 @@ xud <- read_hobotemp(clipped = "user", startstop = ss)
 xud
 ```
 
+## Function: summarize_hobotemp()
+
+Create a dataframe summarizing the temperature data, will group by site.
+
+### Summarize data, csv with one site
+```{r ldSummary}
+sum1 <- summarize_hobotemp(x)
+print.data.frame(sum1)
+```
+
+### Summarize data, csv with more than one site
+```{r msSummary}
+sum2 <- summarize_hobotemp(example_ridge_data())
+print.data.frame(sum2)
+```
+
 ## Function: draw_scatter_plot()
 
 This function will read in a csv of your HOBO data and draw a scatter plot with an overlapping trendline. 

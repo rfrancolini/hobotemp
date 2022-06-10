@@ -96,6 +96,57 @@ xud
     ## 10     542 2021-05-20 02:19:32  8.78         0 LittleDrisko
     ## # ... with 1,142 more rows
 
+## Function: summarize_hobotemp()
+
+Create a dataframe summarizing the temperature data, will group by site.
+
+### Summarize data, csv with one site
+
+``` r
+sum1 <- summarize_hobotemp(x)
+print.data.frame(sum1)
+```
+
+    ##                   Site mean.temp           first.day            last.day
+    ## 1 Little Drisko Island  11.30466 2021-05-15 00:04:32 2021-08-17 00:04:32
+    ##   max.temp       max.temp.date min.temp       min.temp.date
+    ## 1   16.046 2021-08-08 22:34:32    7.682 2021-05-15 07:34:32
+
+### Summarize data, csv with more than one site
+
+``` r
+sum2 <- summarize_hobotemp(example_ridge_data())
+```
+
+    ## Rows: 26018 Columns: 5
+
+    ## -- Column specification --------------------------------------------------------
+    ## Delimiter: ","
+    ## chr  (1): Site
+    ## dbl  (3): Reading, Temp, Intensity
+    ## dttm (1): DateTime
+
+    ## 
+    ## i Use `spec()` to retrieve the full column specification for this data.
+    ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+print.data.frame(sum2)
+```
+
+    ##           Site mean.temp           first.day            last.day max.temp
+    ## 1     Cape Liz  12.95992 2021-06-05 00:11:44 2021-07-20 23:56:44   17.379
+    ## 2  Damariscove  12.58830 2021-06-05 00:04:55 2021-07-20 23:49:55   17.475
+    ## 3 Halfway Rock  12.35469 2021-06-05 00:14:09 2021-07-20 23:59:09   17.760
+    ## 4 Isle Au Haut  11.61809 2021-06-05 00:00:00 2021-07-21 00:00:00   13.846
+    ## 5     Marshall  11.38961 2021-06-10 00:00:00 2021-07-21 00:00:00   13.269
+    ##         max.temp.date min.temp       min.temp.date
+    ## 1 2021-07-18 20:41:44    9.571 2021-06-21 09:56:44
+    ## 2 2021-07-16 19:04:55    8.680 2021-06-09 12:49:55
+    ## 3 2021-07-18 18:14:09    9.077 2021-06-18 09:59:09
+    ## 4 2021-07-08 10:00:00    8.779 2021-06-08 07:00:00
+    ## 5 2021-07-16 18:45:00    9.077 2021-06-10 05:15:00
+
 ## Function: draw_scatter_plot()
 
 This function will read in a csv of your HOBO data and draw a scatter
