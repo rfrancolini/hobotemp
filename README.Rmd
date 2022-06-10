@@ -26,7 +26,11 @@ This is for managing and understanding your HOBO temperature data
 remotes::install_github("rfrancolini/hobotemp")
 ```
 
-## Read Example Data
+## Function: read_hobotemp()
+
+This function will take in raw hobotemp data and output a csv. Options include whether you want to define a site name (if not, itll pull it from the file name), if you want to define the start/stop times, have it automatically remove the first and last day (default setting), or keep all of the data, and if you want to write a file with a specific output name.
+
+### Read Example Data
 
 ```{r example}
 library(hobotemp)
@@ -34,7 +38,7 @@ x <- read_hobotemp()
 x
 ```
 
-## Read Example Data with User Defined Site
+### Read Example Data with User Defined Site
 
 ``` {r exampleSiteName}
 library(hobotemp)
@@ -42,22 +46,7 @@ x <- read_hobotemp(site = "Little Drisko Island")
 x
 ```
 
-## Draw Example Plot
-
-```{r tempplot, message=FALSE}
-tempplot_x <- draw_scatter_plot(x)
-tempplot_x
-```
-
-## Draw example ridgeline plot
-
-```{r ridgeline, message = FALSE}
-ridgelineplot <- draw_ridgeline_plot()
-ridgelineplot
-```
-
-
-## Read Example Data With User Defined Start/Stop Dates
+### Read Example Data With User Defined Start/Stop Dates
 
 ```{r exampleStartStop}
 ss <- as.POSIXct(c("2021-05-20", "2021-06-01"), tz = "UTC")
@@ -65,23 +54,39 @@ xud <- read_hobotemp(clipped = "user", startstop = ss)
 xud
 ```
 
-## Draw Example Plot User Defined Start/Stop Dates
+## Function: draw_scatter_plot()
+
+This function will read in a csv of your HOBO data and draw a scatter plot with an overlapping trendline. 
+
+### Draw Example Scatter Plot
+
+```{r tempplot, message=FALSE}
+tempplot_x <- draw_scatter_plot(x)
+tempplot_x
+```
+
+### Draw Example Scatter Plot with User Defined Start/Stop Dates and Title
 
 ```{r tempplot_ud, message=FALSE}
-tempplot_xud <- draw_scatter_plot(xud)
+tempplot_xud <- draw_scatter_plot(xud, main = "Temperature at Depth, End of May")
 tempplot_xud
 ```
 
-## Read Example Data Without Clipping Data
+## Function: draw_ridgeline_plot()
 
-```{r exampleNA}
-xna <- read_hobotemp(clipped = "none")
-xna
+This function will create a color-coded ridgeline plot, adapted from [here](https://r-graph-gallery.com/294-basic-ridgeline-plot.html). This will have a line representing the temperature, as well as the space underneath the line colored in using a temperature gradient color scheme. Sites will appear in order they are in dataframe, unless "ordered" option is used.
+
+### Draw example ridgeline plot
+
+```{r ridgeline, message = FALSE}
+ridgelineplot <- draw_ridgeline_plot()
+ridgelineplot
 ```
 
-## Draw Example Plot Without Clipping Data
+### Draw example ridgeline plot with specified site order (south to north)
 
-```{r tempplot_na, message=FALSE}
-tempplot_na <- draw_scatter_plot(xna)
-tempplot_na
+```{r ridgelineOrdered, message = FALSE}
+SiteOrder <-  c("Cape Liz", "Halfway Rock", "Damariscove", "Isle Au Haut", "Marshall")
+ridgelineplotO <- draw_ridgeline_plot(ordered = SiteOrder)
+ridgelineplotO
 ```

@@ -18,7 +18,16 @@ This is for managing and understanding your HOBO temperature data
 
     remotes::install_github("rfrancolini/hobotemp")
 
-## Read Example Data
+## Function: read_hobotemp()
+
+This function will take in raw hobotemp data and output a csv. Options
+include whether you want to define a site name (if not, itll pull it
+from the file name), if you want to define the start/stop times, have it
+automatically remove the first and last day (default setting), or keep
+all of the data, and if you want to write a file with a specific output
+name.
+
+### Read Example Data
 
 ``` r
 library(hobotemp)
@@ -41,7 +50,7 @@ x
     ## 10      62 2021-05-15 02:19:32  7.88         0 LittleDrisko
     ## # ... with 9,015 more rows
 
-## Read Example Data with User Defined Site
+### Read Example Data with User Defined Site
 
 ``` r
 library(hobotemp)
@@ -64,25 +73,7 @@ x
     ## 10      62 2021-05-15 02:19:32  7.88         0 Little Drisko Island
     ## # ... with 9,015 more rows
 
-## Draw Example Plot
-
-``` r
-tempplot_x <- draw_scatter_plot(x)
-tempplot_x
-```
-
-![](README_files/figure-gfm/tempplot-1.png)<!-- -->
-
-## Draw example ridgeline plot
-
-``` r
-ridgelineplot <- draw_ridgeline_plot()
-ridgelineplot
-```
-
-![](README_files/figure-gfm/ridgeline-1.png)<!-- -->
-
-## Read Example Data With User Defined Start/Stop Dates
+### Read Example Data With User Defined Start/Stop Dates
 
 ``` r
 ss <- as.POSIXct(c("2021-05-20", "2021-06-01"), tz = "UTC")
@@ -105,42 +96,53 @@ xud
     ## 10     542 2021-05-20 02:19:32  8.78         0 LittleDrisko
     ## # ... with 1,142 more rows
 
-## Draw Example Plot User Defined Start/Stop Dates
+## Function: draw_scatter_plot()
+
+This function will read in a csv of your HOBO data and draw a scatter
+plot with an overlapping trendline.
+
+### Draw Example Scatter Plot
 
 ``` r
-tempplot_xud <- draw_scatter_plot(xud)
+tempplot_x <- draw_scatter_plot(x)
+tempplot_x
+```
+
+![](README_files/figure-gfm/tempplot-1.png)<!-- -->
+
+### Draw Example Scatter Plot with User Defined Start/Stop Dates and Title
+
+``` r
+tempplot_xud <- draw_scatter_plot(xud, main = "Temperature at Depth, End of May")
 tempplot_xud
 ```
 
 ![](README_files/figure-gfm/tempplot_ud-1.png)<!-- -->
 
-## Read Example Data Without Clipping Data
+## Function: draw_ridgeline_plot()
+
+This function will create a color-coded ridgeline plot, adapted from
+[here](https://r-graph-gallery.com/294-basic-ridgeline-plot.html). This
+will have a line representing the temperature, as well as the space
+underneath the line colored in using a temperature gradient color
+scheme. Sites will appear in order they are in dataframe, unless
+“ordered” option is used.
+
+### Draw example ridgeline plot
 
 ``` r
-xna <- read_hobotemp(clipped = "none")
-xna
+ridgelineplot <- draw_ridgeline_plot()
+ridgelineplot
 ```
 
-    ## # A tibble: 9,165 x 5
-    ##    Reading DateTime             Temp Intensity Site        
-    ##      <int> <dttm>              <dbl>     <dbl> <chr>       
-    ##  1       1 2021-05-14 11:19:32  20.1         1 LittleDrisko
-    ##  2       3 2021-05-14 11:34:32  20.5        36 LittleDrisko
-    ##  3       4 2021-05-14 11:49:32  20.5        37 LittleDrisko
-    ##  4       5 2021-05-14 12:04:32  15.5        26 LittleDrisko
-    ##  5       6 2021-05-14 12:19:32  14.0        25 LittleDrisko
-    ##  6       7 2021-05-14 12:34:32  14.7        38 LittleDrisko
-    ##  7       8 2021-05-14 12:49:32  14.7       123 LittleDrisko
-    ##  8       9 2021-05-14 13:04:32  13.9        60 LittleDrisko
-    ##  9      10 2021-05-14 13:19:32  15.3        35 LittleDrisko
-    ## 10      11 2021-05-14 13:34:32  14.6        38 LittleDrisko
-    ## # ... with 9,155 more rows
+![](README_files/figure-gfm/ridgeline-1.png)<!-- -->
 
-## Draw Example Plot Without Clipping Data
+### Draw example ridgeline plot with specified site order (south to north)
 
 ``` r
-tempplot_na <- draw_scatter_plot(xna)
-tempplot_na
+SiteOrder <-  c("Cape Liz", "Halfway Rock", "Damariscove", "Isle Au Haut", "Marshall")
+ridgelineplotO <- draw_ridgeline_plot(ordered = SiteOrder)
+ridgelineplotO
 ```
 
-![](README_files/figure-gfm/tempplot_na-1.png)<!-- -->
+![](README_files/figure-gfm/ridgelineOrdered-1.png)<!-- -->
