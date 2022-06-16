@@ -139,6 +139,51 @@ draw_ridgeline_plot <- function(x = example_ridge_data(),
 
 
 
+#' Plot temperature data as line plot, can facet to multiple sites
+#'
+#' @export
+#' @param x tibble of hobotemp data
+#' @param main character, title
+#' @param xlabel character, title of xaxis
+#' @param ylabel character, title of yaxis
+#' @param ordered vector, vector of site names in order to be displayed bottom to top in legend and/or when facetted, must match site names in csv, default NULL
+#' @param facet character, column to facet upon, default NULL
+#' @param ... further arguments passed to \code{\link[ggplot2]{theme}}
+#' @return ggplot2 object
+draw_line_plot <- function(x = example_ridge_data(),
+                              main = "Temperature at Depth",
+                              xlabel = "Date",
+                              ylabel = "Temperature (degrees C)",
+                              ordered = NULL,
+                              facet = NULL,
+                              ...){
+
+  #define colorblind friendly palette with 15 colors
+  pal <- c("#490092","#004949","#009292","#ff6db6","#ffb6db",
+           "#000000","#924900","#b66dff","#6db6ff","#b6dbff",
+           "#920000","#006ddb","#db6d00","#24ff24","#ffff6d")
+
+  #factorize site column if order is defined (which is opposite of what is asked of user)
+  if (!is.null(ordered)){
+    x$Site <- as.factor(x$Site)
+    x$Site <- factor(x$Site, levels = ordered)
+    x$Site <- factor(x$Site, levels = rev(levels(x$Site)))
+  }
+
+
+  gg <- ggplot2::ggplot(data = x, ggplot2::aes(x = .data$DateTime, y = .data$Temp)) +
+    #ggplot2::geom_point(na.rm = TRUE, alpha = alpha, shape = 4, ggplot2::aes(color = Sensor)) +
+    ggplot2::scale_color_manual(values = pal, name = "Site") +
+    ggplot2::geom_line(ggplot2::aes(color = x$Site)) +
+    ggplot2::labs(title = main, x = xlabel, y = ylabel) +
+    ggplot2::theme_bw()
+
+  if (!is.null(facet)){
+    gg <- gg + ggplot2::facet_wrap(ggplot2::vars(x$Site), ncol = 1, strip.position = "right")
+  }
+
+  gg
+}
 
 
 

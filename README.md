@@ -199,3 +199,29 @@ ridgelineplotO
 ```
 
 ![](README_files/figure-gfm/ridgelineOrdered-1.png)<!-- -->
+
+## Function: draw_line_plot()
+
+This function will create a line plot, with a colorblind friendly color
+pallette, and can currently take up to 15 sites at once. Sites will
+appear in legend (or will be facetted upon) in order they are in
+dataframe, unless “ordered” option is used.
+
+### Draw example line plot
+
+``` r
+lineplot <- draw_line_plot()
+lineplot
+```
+
+![](README_files/figure-gfm/line-1.png)<!-- -->
+
+### Draw example ridgeline plot with specified site order (south to north)
+
+``` r
+SiteOrder <-  c("Cape Liz", "Halfway Rock", "Damariscove", "Isle Au Haut", "Marshall")
+lineplotO <- draw_line_plot(ordered = SiteOrder, facet = "Site")
+lineplotO
+```
+
+![](README_files/figure-gfm/lineOrdered-1.png)<!-- -->
