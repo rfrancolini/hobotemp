@@ -118,7 +118,7 @@ lineplot <- draw_line_plot()
 lineplot
 ```
 
-### Draw example ridgeline plot with specified site order (south to north)
+### Draw example line plot facetted with specified site order (south to north)
 
 ```{r lineOrdered, message = FALSE}
 SiteOrder <-  c("Cape Liz", "Halfway Rock", "Damariscove", "Isle Au Haut", "Marshall")

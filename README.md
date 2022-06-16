@@ -216,7 +216,7 @@ lineplot
 
 ![](README_files/figure-gfm/line-1.png)<!-- -->
 
-### Draw example ridgeline plot with specified site order (south to north)
+### Draw example line plot facetted with specified site order (south to north)
 
 ``` r
 SiteOrder <-  c("Cape Liz", "Halfway Rock", "Damariscove", "Isle Au Haut", "Marshall")
